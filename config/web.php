@@ -1,5 +1,7 @@
 <?php
 
+use app\modules\orders\Orders;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -10,6 +12,11 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+    ],
+    'modules' => [
+        'orders' => [
+            'class' => Orders::class,
+        ],
     ],
     'components' => [
         'request' => [
