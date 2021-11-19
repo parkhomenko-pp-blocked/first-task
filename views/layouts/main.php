@@ -23,6 +23,15 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <?php $this->registerCssFile('@web/css/bootstrap.min.css') ?>
     <?php $this->registerCssFile('@web/css/custom.css') ?>
+    <style>
+        .label-default{
+            border: 1px solid #ddd;
+            background: none;
+            color: #333;
+            min-width: 30px;
+            display: inline-block;
+        }
+    </style>
     <?php $this->registerJsFile('@web/js/jquery.min.js') ?>
     <?php $this->registerJsFile('@web/js/bootstrap.min.js') ?>
 </head>
