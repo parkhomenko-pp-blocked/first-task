@@ -40,21 +40,16 @@ class OrderWithUserDTOFactory
         $orders = [];
 
         foreach ($arOrders as $arOrder) {
-            try {
-                $date = new \DateTime($arOrder['order_created_at']);
-                $orders[] = new OrderWithUserDataDTO(
-                    $arOrder['order_id'],
-                    $arOrder['user'],
-                    $arOrder['order_link'],
-                    $arOrder['order_quantity'],
-                    $this->services[$arOrder['order_service_id']],
-                    self::STATUES[$arOrder['order_status']],
-                    self::MODES[$arOrder['order_mode']],
-                    $date->format('Y-m-d H:i:s'),
-                );
-            } catch (Throwable) {
-
-            }
+            $orders[] = new OrderWithUserDataDTO(
+                $arOrder['order_id'],
+                $arOrder['user'],
+                $arOrder['order_link'],
+                $arOrder['order_quantity'],
+                $this->services[$arOrder['order_service_id']],
+                self::STATUES[$arOrder['order_status']],
+                self::MODES[$arOrder['order_mode']],
+                $arOrder['order_created_at'],
+            );
         }
 
         return $orders;

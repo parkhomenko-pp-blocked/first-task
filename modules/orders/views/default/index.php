@@ -1,20 +1,23 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @var \app\modules\orders\models\OrderWithUserDataDTO[] $orders
  * @var \yii\data\Pagination $pagination
  * @var \app\modules\orders\models\ServiceDTO[] $services
  */
 
+use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
 ?>
 <ul class="nav nav-tabs p-b">
-    <li class="active"><a href="#">All orders</a></li>
-    <li><a href="#">Pending</a></li>
-    <li><a href="#">In progress</a></li>
-    <li><a href="#">Completed</a></li>
-    <li><a href="#">Canceled</a></li>
-    <li><a href="#">Error</a></li>
+    <li class="<!--active-->"><a href="<?= Url::to(['default/index'])?>">All orders</a></li>
+    <li><a href="<?= Url::to(['default/index', 'status' => 0])?>">Pending</a></li>
+    <li><a href="<?= Url::to(['default/index', 'status' => 1])?>">In progress</a></li>
+    <li><a href="<?= Url::to(['default/index', 'status' => 2])?>">Completed</a></li>
+    <li><a href="<?= Url::to(['default/index', 'status' => 3])?>">Canceled</a></li>
+    <li><a href="<?= Url::to(['default/index', 'status' => 4])?>">Error</a></li>
     <li class="pull-right custom-search">
         <form class="form-inline" action="/admin/orders" method="get">
             <div class="input-group">
@@ -49,7 +52,7 @@ use yii\widgets\LinkPager;
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li class="active"><a href="">All (<?= $pagination->totalCount ?>)</a></li>
                     <?php foreach($services as $service): ?>
-                        <li><a href=""><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
+                        <li><a href="<?= Url::to(['default/index', 'service' => $service->getId()])?>"><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -62,9 +65,9 @@ use yii\widgets\LinkPager;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="active"><a href="">All</a></li>
-                    <li><a href="">Manual</a></li>
-                    <li><a href="">Auto</a></li>
+                    <li class="active-old"><a href="<?= Url::to(['default/index', 'mode' => null])?>">All</a></li>
+                    <li><a href="<?= Url::to(['default/index', 'mode' => 0])?>">Manual</a></li>
+                    <li><a href="<?= Url::to(['default/index', 'mode' => 1])?>">Auto</a></li>
                 </ul>
             </div>
         </th>

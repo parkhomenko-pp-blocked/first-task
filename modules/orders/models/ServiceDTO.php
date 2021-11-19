@@ -6,11 +6,13 @@ namespace app\modules\orders\models;
 
 class ServiceDTO
 {
+    private int $id;
     private int $count;
     private string $name;
 
-    public function __construct(int $count, string $name)
+    public function __construct(int $id, int $count, string $name)
     {
+        $this->id = $id;
         $this->count = $count;
         $this->name = $name;
     }
@@ -29,5 +31,10 @@ class ServiceDTO
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

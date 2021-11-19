@@ -17,6 +17,7 @@ class ServiceDTOFactory
         foreach ($arServices as $arService) {
             try {
                 $services[$arService['service_id']] = new ServiceDTO(
+                    $arService['service_id'],
                     $arService['service_count'],
                     $arService['service_name'],
                 );

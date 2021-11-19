@@ -18,19 +18,13 @@ class DefaultController extends Controller
 {
     /**
      * Renders the index view for the module
+     * @param int|null $status
+     * @param int|null $service
+     * @param int|null $mode
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(int $status = null, int $service = null, int $mode = null): string
     {
-        $query = Order::find();
-
-        $pagination = new Pagination(
-            [
-                'pageSize' => 100,
-                'totalCount'      => $query->count()
-            ]
-        );
-
         $arServices = (new Query())
             ->select([
                          'services.id as service_id',
@@ -45,6 +39,21 @@ class DefaultController extends Controller
         $serviceFactory = new ServiceDTOFactory();
         $services = $serviceFactory->fromDBArrayToArray($arServices);
 
+        $query = Order::find()->filterWhere(
+            [
+                'status' => $status,
+                'service_id' => $service,
+                'mode' => $mode
+            ]
+        );
+
+        $pagination = new Pagination(
+            [
+                'pageSize' => 100,
+                'totalCount' => $query->count()
+            ]
+        );
+
         $arOrders = (new Query())
             ->select([
                          'orders.id as order_id',
@@ -57,10 +66,15 @@ class DefaultController extends Controller
                          'orders.created_at as order_created_at'
                      ])
             ->from('orders')
+            ->filterWhere([
+                'orders.status' => $status,
+                'orders.service_id' => $service,
+                'orders.mode' => $mode
+            ])
             ->innerJoin('users', 'users.id = orders.user_id')
             ->orderBy(['orders.id' => SORT_DESC])
-            ->offset($pagination->offset)
             ->limit($pagination->limit)
+            ->offset($pagination->offset)
             ->all();
         $ordersFactory = new OrderWithUserDTOFactory($services);
         $orders = $ordersFactory->fromArrayToArray($arOrders);
