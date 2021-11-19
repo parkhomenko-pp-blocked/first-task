@@ -47,7 +47,7 @@ use yii\widgets\LinkPager;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="active"><a href="">All (N)</a></li>
+                    <li class="active"><a href="">All (<?= $pagination->totalCount ?>)</a></li>
                     <?php foreach($services as $service): ?>
                         <li><a href=""><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
                     <?php endforeach; ?>
