@@ -5,6 +5,11 @@ declare(strict_types=1);
  * @var \app\modules\orders\models\OrderWithUserDataDTO[] $orders
  * @var \yii\data\Pagination $pagination
  * @var \app\modules\orders\models\ServiceDTO[] $services
+ *
+ * @var int|null $status
+ * @var int|null $serviceId
+ * @var int|null $mode
+ * @var int|null $totalCountWithoutFilters
  */
 
 use yii\helpers\Url;
@@ -12,12 +17,12 @@ use yii\widgets\LinkPager;
 
 ?>
 <ul class="nav nav-tabs p-b">
-    <li class="<!--active-->"><a href="<?= Url::to(['default/index'])?>">All orders</a></li>
-    <li><a href="<?= Url::to(['default/index', 'status' => 0])?>">Pending</a></li>
-    <li><a href="<?= Url::to(['default/index', 'status' => 1])?>">In progress</a></li>
-    <li><a href="<?= Url::to(['default/index', 'status' => 2])?>">Completed</a></li>
-    <li><a href="<?= Url::to(['default/index', 'status' => 3])?>">Canceled</a></li>
-    <li><a href="<?= Url::to(['default/index', 'status' => 4])?>">Error</a></li>
+    <li <?php if ($status === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index'])?>">All orders</a></li>
+    <li <?php if ($status === 0): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 0])?>">Pending</a></li>
+    <li <?php if ($status === 1): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 1])?>">In progress</a></li>
+    <li <?php if ($status === 2): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 2])?>">Completed</a></li>
+    <li <?php if ($status === 3): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 3])?>">Canceled</a></li>
+    <li <?php if ($status === 4): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 4])?>">Error</a></li>
     <li class="pull-right custom-search">
         <form class="form-inline" action="/admin/orders" method="get">
             <div class="input-group">
@@ -50,9 +55,9 @@ use yii\widgets\LinkPager;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="active"><a href="">All (<?= $pagination->totalCount ?>)</a></li>
+                    <li <?php if ($serviceId === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => null, 'mode' => $mode])?>">All (<?= $totalCountWithoutFilters ?>)</a></li>
                     <?php foreach($services as $service): ?>
-                        <li><a href="<?= Url::to(['default/index', 'service' => $service->getId()])?>"><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
+                        <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => $service->getId(), 'mode' => $mode])?>"><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -65,9 +70,9 @@ use yii\widgets\LinkPager;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li class="active-old"><a href="<?= Url::to(['default/index', 'mode' => null])?>">All</a></li>
-                    <li><a href="<?= Url::to(['default/index', 'mode' => 0])?>">Manual</a></li>
-                    <li><a href="<?= Url::to(['default/index', 'mode' => 1])?>">Auto</a></li>
+                    <li <?php if ($mode === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => null, 'service' => $serviceId])?>">All</a></li>
+                    <li <?php if ($mode === 0): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => 0, 'service' => $serviceId])?>">Manual</a></li>
+                    <li <?php if ($mode === 1): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => 1, 'service' => $serviceId])?>">Auto</a></li>
                 </ul>
             </div>
         </th>
@@ -98,7 +103,7 @@ use yii\widgets\LinkPager;
         <?= LinkPager::widget(['pagination' => $pagination]) ?>
     </div>
 
-<!--    <div class="col-sm-4 pagination-counters">-->
-<!--        --><?//= sprintf('%d to %d of %d', 1 , $pagination->getPageCount(), $pagination->totalCount) ?>
-<!--    </div>-->
+    <div class="col-sm-4 pagination-counters">
+        <?= $pagination->totalCount ?>
+    </div>
 </div>

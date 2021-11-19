@@ -82,7 +82,11 @@ class DefaultController extends Controller
         return $this->render('index', [
             'orders' => $orders,
             'pagination' => $pagination,
-            'services' => $services
+            'services' => $services,
+            'serviceId' => $service,
+            'mode' => $mode,
+            'status' => $status,
+            'totalCountWithoutFilters' => Order::find()->count()
         ]);
     }
 }
