@@ -1,8 +1,8 @@
 <?php
 /**
- * @var \app\modules\orders\models\Order[] $orders
+ * @var \app\modules\orders\models\OrderWithUserDataDTO[] $orders
  * @var \yii\data\Pagination $pagination
- * @var array[] $services
+ * @var \app\modules\orders\models\ServiceDTO[] $services
  */
 
 use yii\widgets\LinkPager;
@@ -49,7 +49,7 @@ use yii\widgets\LinkPager;
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li class="active"><a href="">All (N)</a></li>
                     <?php foreach($services as $service): ?>
-                        <li><a href=""><span class="label-id"><?= $service['service_count'] ?></span> <?= $service['service_name'] ?></a></li>
+                        <li><a href=""><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -74,16 +74,16 @@ use yii\widgets\LinkPager;
     <tbody>
         <?php foreach ($orders as $order): ?>
             <tr>
-                <td><?= $order->id ?></td>
-                <td><?= $order->user_id ?></td>
-                <td class="link"><?= $order->link ?></td>
-                <td><?= $order->quantity ?></td>
+                <td><?= $order->getId() ?></td>
+                <td><?= $order->getUser() ?></td>
+                <td class="link"><?= $order->getLink() ?></td>
+                <td><?= $order->getQuantity() ?></td>
                 <td class="service">
-                    <span class="label-id">213</span>Likes
+                    <span class="label-id"><?= $order->getService()->getCount() ?></span> <?=$order->getService()->getName()?>
                 </td>
-                <td><?= $order->status ?></td>
-                <td><?= $order->mode ?></td>
-                <td><span class="nowrap"><?= $order->created_at ?></span></td>
+                <td><?= $order->getStatus() ?></td>
+                <td><?= $order->getMode() ?></td>
+                <td><span class="nowrap"><?= $order->getCreated() ?></span></td>
 <!--                <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>-->
             </tr>
         <?php endforeach; ?>

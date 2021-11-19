@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\modules\orders\models;
 
 use Yii;
@@ -18,6 +20,19 @@ use Yii;
  */
 class Order extends \yii\db\ActiveRecord
 {
+    private const STATUES = [
+        0 => 'Pending',
+        1 => 'In progress',
+        2 => 'Completed',
+        3 => 'Canceled',
+        4 => 'Fail'
+    ];
+
+    private const MODES = [
+        0 => 'Manual',
+        1 => 'Auto'
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -53,5 +68,15 @@ class Order extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'mode' => 'Mode',
         ];
+    }
+
+    public function getStatusName(): string
+    {
+        return self::STATUES[$this->status];
+    }
+
+    public function getModeName(): string
+    {
+        return self::MODES[$this->mode];
     }
 }
