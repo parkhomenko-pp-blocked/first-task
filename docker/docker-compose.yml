@@ -2,7 +2,7 @@ version: '2'
 
 services:
   db:
-    platform: linux/x86_64
+    platform: linux/x86_64 # для Mac на M1
     image: mysql
     restart: always
     ports:
