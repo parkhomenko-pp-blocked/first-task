@@ -1,5 +1,7 @@
 <?php
 
+use bizley\migration\controllers\MigrationController;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -35,6 +37,11 @@ $config = [
         ],
     ],
     */
+    'controllerMap' => [
+        'migration' => [
+            'class' => MigrationController::class,
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

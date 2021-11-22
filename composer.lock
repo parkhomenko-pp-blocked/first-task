@@ -4,8 +4,71 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a973addecfa2040a73918abda938727c",
+    "content-hash": "8c6248267dbe0c8d556a2b12320ce2aa",
     "packages": [
+        {
+            "name": "bizley/migration",
+            "version": "4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bizley/yii2-migration.git",
+                "reference": "8e7991883874b93fb9800d6df0b3b771cadd287f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bizley/yii2-migration/zipball/8e7991883874b93fb9800d6df0b3b771cadd287f",
+                "reference": "8e7991883874b93fb9800d6df0b3b771cadd287f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-pdo": "*",
+                "php": ">=7.2",
+                "yiisoft/yii2": "^2.0.19"
+            },
+            "require-dev": {
+                "infection/infection": "*",
+                "phpstan/phpstan": "*",
+                "phpunit/phpunit": "*",
+                "roave/security-advisories": "dev-latest"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bizley\\migration\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Bizley Brzozowski",
+                    "email": "pawel@positive.codes"
+                }
+            ],
+            "description": "Migration generator for Yii 2.",
+            "keywords": [
+                "console",
+                "generator",
+                "migrate",
+                "migration",
+                "updater",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/bizley/yii2-migration/issues",
+                "source": "https://github.com/bizley/yii2-migration"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/bizley",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-16T19:34:38+00:00"
+        },
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
