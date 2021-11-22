@@ -40,7 +40,7 @@ use yii\widgets\LinkPager;
     <li class="pull-right custom-search">
         <?php $form = ActiveForm::begin(['class' => 'form-inline']) ?>
             <div class="input-group">
-                <?= $form->field($searchModel, 'text')->label(false) ?>
+                <?= $form->field($searchModel, 'text')->label(false)->textInput(['placeholder' => Yii::t('app', 'Search Orders')]) ?>
                 <span class="input-group-btn search-select-wrap">
                     <?= $form->field($searchModel, 'field')->label(false)
                         ->dropDownList([
