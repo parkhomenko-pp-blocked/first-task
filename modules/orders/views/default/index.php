@@ -1,6 +1,17 @@
 <?php
 
 declare(strict_types=1);
+
+const ORDERS_STATUS_ALL = null;
+const ORDERS_STATUS_PENDING = 0;
+const ORDERS_STATUS_IN_PROGRESS = 1;
+const ORDERS_STATUS_COMPLETED = 2;
+const ORDERS_STATUS_CANCELED = 3;
+const ORDERS_STATUS_ERROR = 4;
+
+const MODE_STATUS_ALL = null;
+const MODE_STATUS_MANUAL = 0;
+const MODE_STATUS_AUTO = 1;
 /**
  * @var \app\modules\orders\models\OrderWithUserDataDTO[] $orders
  * @var \yii\data\Pagination $pagination
@@ -17,12 +28,12 @@ use yii\widgets\LinkPager;
 
 ?>
 <ul class="nav nav-tabs p-b">
-    <li <?php if ($status === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index'])?>">All orders</a></li>
-    <li <?php if ($status === 0): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 0])?>">Pending</a></li>
-    <li <?php if ($status === 1): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 1])?>">In progress</a></li>
-    <li <?php if ($status === 2): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 2])?>">Completed</a></li>
-    <li <?php if ($status === 3): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 3])?>">Canceled</a></li>
-    <li <?php if ($status === 4): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => 4])?>">Error</a></li>
+    <li <?php if ($status === ORDERS_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index'])?>">All orders</a></li>
+    <li <?php if ($status === ORDERS_STATUS_PENDING): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_PENDING])?>">Pending</a></li>
+    <li <?php if ($status === ORDERS_STATUS_IN_PROGRESS): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_IN_PROGRESS])?>">In progress</a></li>
+    <li <?php if ($status === ORDERS_STATUS_COMPLETED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_COMPLETED])?>">Completed</a></li>
+    <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED])?>">Canceled</a></li>
+    <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR])?>">Error</a></li>
     <li class="pull-right custom-search">
         <form class="form-inline" action="/admin/orders" method="get">
             <div class="input-group">
@@ -69,9 +80,9 @@ use yii\widgets\LinkPager;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li <?php if ($mode === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => null, 'service' => $serviceId])?>">All</a></li>
-                    <li <?php if ($mode === 0): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => 0, 'service' => $serviceId])?>">Manual</a></li>
-                    <li <?php if ($mode === 1): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => 1, 'service' => $serviceId])?>">Auto</a></li>
+                    <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId])?>">All</a></li>
+                    <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId])?>">Manual</a></li>
+                    <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId])?>">Auto</a></li>
                 </ul>
             </div>
         </th>
