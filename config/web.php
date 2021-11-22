@@ -1,5 +1,6 @@
 <?php
 
+use yii\i18n\PhpMessageSource;
 use app\modules\orders\Orders;
 
 $params = require __DIR__ . '/params.php';
@@ -50,6 +51,8 @@ $config = [
             ],
         ],
         'db' => $db,
+        'language' => 'ru-RU',
+        'sourceLanguage' => 'en-US',
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -58,6 +61,19 @@ $config = [
             ],
         ],
         */
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class'   => PhpMessageSource::class,
+                    'basePath' => '@app/messages',
+//                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app'       => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+],
     ],
     'params' => $params,
 ];

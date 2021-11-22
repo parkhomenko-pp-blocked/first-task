@@ -4,11 +4,8 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
-use app\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -50,7 +47,7 @@ AppAsset::register($this);
         </div>
         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Orders</a></li>
+                <li <?php if(Yii::$app->controller->id === 'default') :?>class="active" <?php endif ?>><a href="<?= Url::to(['/orders/default/index']) ?>"><?= Yii::t('app', 'Orders') ?></a></li>
             </ul>
         </div>
     </div>

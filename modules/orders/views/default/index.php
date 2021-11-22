@@ -31,12 +31,12 @@ use yii\widgets\LinkPager;
 
 ?>
 <ul class="nav nav-tabs p-b">
-    <li <?php if ($status === ORDERS_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index'])?>">All orders</a></li>
-    <li <?php if ($status === ORDERS_STATUS_PENDING): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_PENDING])?>">Pending</a></li>
-    <li <?php if ($status === ORDERS_STATUS_IN_PROGRESS): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_IN_PROGRESS])?>">In progress</a></li>
-    <li <?php if ($status === ORDERS_STATUS_COMPLETED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_COMPLETED])?>">Completed</a></li>
-    <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED])?>">Canceled</a></li>
-    <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR])?>">Error</a></li>
+    <li <?php if ($status === ORDERS_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index'])?>"><?= Yii::t('app', 'All orders') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_PENDING): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_PENDING])?>"><?= Yii::t('app', 'Pending') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_IN_PROGRESS): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_IN_PROGRESS])?>"><?= Yii::t('app', 'In progress') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_COMPLETED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_COMPLETED])?>"><?= Yii::t('app', 'Completed') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED])?>"><?= Yii::t('app', 'Canceled') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR])?>"><?= Yii::t('app', 'Error') ?></a></li>
     <li class="pull-right custom-search">
         <?php $form = ActiveForm::begin(['class' => 'form-inline']) ?>
             <div class="input-group">
@@ -54,8 +54,6 @@ use yii\widgets\LinkPager;
                     </div>
                 </span>
             </div>
-
-
         <?php ActiveForm::end() ?>
     </li>
 </ul>
@@ -63,39 +61,62 @@ use yii\widgets\LinkPager;
 <table class="table order-table">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>User</th>
-        <th>Link</th>
-        <th>Quantity</th>
+        <th><?= Yii::t('app', 'ID') ?></th>
+        <th><?= Yii::t('app', 'User') ?></th>
+        <th><?= Yii::t('app', 'Link') ?></th>
+        <th><?= Yii::t('app', 'Quantiry') ?></th>
         <th class="dropdown-th">
             <div class="dropdown">
                 <button class="btn btn-th btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Service
+                    <?= Yii::t('app', 'Service') ?>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li <?php if ($serviceId === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => null, 'mode' => $mode])?>">All (<?= $totalCountWithoutFilters ?>)</a></li>
+                    <li <?php if ($serviceId === null): ?>class="active"<?php endif;?>>
+                        <a href="<?= Url::to(['default/index', 'service' => null, 'mode' => $mode])?>">
+                            <?= Yii::t('app', 'All') ?> (<?= $totalCountWithoutFilters ?>)
+                        </a>
+                    </li>
                     <?php foreach($services as $service): ?>
-                        <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => $service->getId(), 'mode' => $mode, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
+                        <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>>
+                            <a href="<?= Url::to(['default/index', 'service' => $service->getId(), 'mode' => $mode, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
+                                <span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?>
+                            </a>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
         </th>
-        <th>Status</th>
+        <th><?= Yii::t('app', 'Status') ?></th>
         <th class="dropdown-th">
             <div class="dropdown">
                 <button class="btn btn-th btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Mode
+                    <?= Yii::t('app', 'Mode') ?>
                     <span class="caret"></span>
                 </button>
+
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">All</a></li>
-                    <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">Manual</a></li>
-                    <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'formSearch' => $searchModel])?>">Auto</a></li>
+                    <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>>
+                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">
+                            <?= Yii::t('app', 'All') ?>
+                        </a>
+                    </li>
+
+                    <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>>
+                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">
+                            <?= Yii::t('app', 'Manual') ?>
+                        </a>
+                    </li>
+
+                    <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>>
+                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'formSearch' => $searchModel])?>">
+                            <?= Yii::t('app', 'Auto') ?>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </th>
-        <th>Created</th>
+        <th><?= Yii::t('app', 'Created') ?></th>
     </tr>
     </thead>
     <tbody>
