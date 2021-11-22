@@ -6,6 +6,7 @@ namespace app\modules\orders\controllers;
 
 use app\modules\orders\models\Order;
 use app\modules\orders\models\OrderWithUserDTOFactory;
+use app\modules\orders\models\SearchForm;
 use app\modules\orders\models\ServiceDTOFactory;
 use yii\data\Pagination;
 use yii\db\Query;
@@ -21,9 +22,11 @@ class DefaultController extends Controller
      * @param int|null $status
      * @param int|null $service
      * @param int|null $mode
+     * @param string|null $search
+     * @param int|null $searchFieldId
      * @return string
      */
-    public function actionIndex(int $status = null, int $service = null, int $mode = null): string
+    public function actionIndex(int $status = null, int $service = null, int $mode = null, string $search = null, int $searchFieldId = null): string
     {
         $arServices = (new Query())
             ->select([
@@ -39,22 +42,30 @@ class DefaultController extends Controller
         $serviceFactory = new ServiceDTOFactory();
         $services = $serviceFactory->fromDBArrayToArray($arServices);
 
-        $query = Order::find()->filterWhere(
-            [
-                'status' => $status,
-                'service_id' => $service,
-                'mode' => $mode
-            ]
-        );
+        $searchModel = new SearchForm();
+        if (\Yii::$app->request->isPost) {
+            $searchModel = new SearchForm();
+            $searchModel->load(\Yii::$app->request->post());
+        } elseif (isset($search, $searchFieldId)) {
+            $searchModel = new SearchForm(['text' => $search, 'field' => $searchFieldId]);
+        }
 
-        $pagination = new Pagination(
-            [
-                'pageSize' => 100,
-                'totalCount' => $query->count()
-            ]
-        );
+        $searchData = [];
+        if ($searchModel->isAttributesSetted() && $searchModel->validate()) {
+            switch ($searchModel->field) {
+                case SearchForm::ORDER_FIELD_ID:
+                    $searchData = ['in', 'orders.id', $searchModel->text];
+                    break;
+                case SearchForm::LINK_FIELD_ID:
+                    $searchData = ['like', 'orders.link', $searchModel->text];
+                    break;
+                case SearchForm::USER_FIELD_ID:
+                    $searchData = ['like', 'CONCAT(users.first_name, \' \', users.last_name)', $searchModel->text];
+                    break;
+            }
+        }
 
-        $arOrders = (new Query())
+        $ordersQuery = (new Query())
             ->select([
                          'orders.id as order_id',
                          'CONCAT(users.first_name, \' \', users.last_name) AS user',
@@ -67,12 +78,22 @@ class DefaultController extends Controller
                      ])
             ->from('orders')
             ->filterWhere([
-                'orders.status' => $status,
-                'orders.service_id' => $service,
-                'orders.mode' => $mode
-            ])
+                              'orders.status' => $status,
+                              'orders.service_id' => $service,
+                              'orders.mode' => $mode
+                          ])
+            ->andFilterWhere($searchData)
             ->innerJoin('users', 'users.id = orders.user_id')
-            ->orderBy(['orders.id' => SORT_DESC])
+            ->orderBy(['orders.id' => SORT_DESC]);
+
+        $pagination = new Pagination(
+            [
+                'pageSize' => 100,
+                'totalCount' => $ordersQuery->count()
+            ]
+        );
+
+        $arOrders = $ordersQuery
             ->limit($pagination->limit)
             ->offset($pagination->offset)
             ->all();
@@ -86,7 +107,8 @@ class DefaultController extends Controller
             'serviceId' => $service,
             'mode' => $mode,
             'status' => $status,
-            'totalCountWithoutFilters' => Order::find()->count()
+            'totalCountWithoutFilters' => Order::find()->count(),
+            'searchModel' => $searchModel
         ]);
     }
 }

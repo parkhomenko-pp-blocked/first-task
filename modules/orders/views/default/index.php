@@ -16,6 +16,7 @@ const MODE_STATUS_AUTO = 1;
  * @var \app\modules\orders\models\OrderWithUserDataDTO[] $orders
  * @var \yii\data\Pagination $pagination
  * @var \app\modules\orders\models\ServiceDTO[] $services
+ * @var \app\modules\orders\models\SearchForm|null $searchModel
  *
  * @var int|null $status
  * @var int|null $serviceId
@@ -23,7 +24,9 @@ const MODE_STATUS_AUTO = 1;
  * @var int|null $totalCountWithoutFilters
  */
 
+use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 
 ?>
@@ -35,19 +38,25 @@ use yii\widgets\LinkPager;
     <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED])?>">Canceled</a></li>
     <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR])?>">Error</a></li>
     <li class="pull-right custom-search">
-        <form class="form-inline" action="/admin/orders" method="get">
+        <?php $form = ActiveForm::begin(['class' => 'form-inline']) ?>
             <div class="input-group">
-                <input type="text" name="search" class="form-control" value="" placeholder="Search orders">
+                <?= $form->field($searchModel, 'text')->label(false) ?>
                 <span class="input-group-btn search-select-wrap">
-                    <select class="form-control search-select" name="search-type">
-                      <option value="1" selected="">Order ID</option>
-                      <option value="2">Link</option>
-                      <option value="3">Username</option>
-                    </select>
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    <?= $form->field($searchModel, 'field')->label(false)
+                        ->dropDownList([
+                                           '1' => 'Order ID',
+                                           '2' => 'Link',
+                                           '3' => 'Username'
+                                       ], ['class' => 'form-control search-select']) ?>
+
+                    <div class="form-group">
+                        <?= Html::submitButton('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>', ['class' => 'btn btn-default', 'type' => 'submit']) ?>
+                    </div>
                 </span>
             </div>
-        </form>
+
+
+        <?php ActiveForm::end() ?>
     </li>
 </ul>
 
@@ -67,7 +76,7 @@ use yii\widgets\LinkPager;
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li <?php if ($serviceId === null): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => null, 'mode' => $mode])?>">All (<?= $totalCountWithoutFilters ?>)</a></li>
                     <?php foreach($services as $service): ?>
-                        <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => $service->getId(), 'mode' => $mode])?>"><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
+                        <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'service' => $service->getId(), 'mode' => $mode, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -80,9 +89,9 @@ use yii\widgets\LinkPager;
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId])?>">All</a></li>
-                    <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId])?>">Manual</a></li>
-                    <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId])?>">Auto</a></li>
+                    <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">All</a></li>
+                    <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">Manual</a></li>
+                    <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'formSearch' => $searchModel])?>">Auto</a></li>
                 </ul>
             </div>
         </th>
