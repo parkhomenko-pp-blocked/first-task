@@ -1,9 +1,10 @@
 [Задание](https://docs.google.com/document/d/1WNDPzGEs-zgsTvoQ6KS3KyP4F_7il94_DWujKc0PkJ0)
 
-## Запуск
 Докер-контейнер для Yii2 с MySQL взят из [xzag/yii2-docker-basic](https://github.com/xzag/yii2-docker-basic)
+## Запуск
+Открыть проект.
 ```bash
-cd docker
+cd docker # зайти в папку "docker" внутри проекта
 ```
 
 ```bash
