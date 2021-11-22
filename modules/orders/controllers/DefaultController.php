@@ -50,17 +50,17 @@ class DefaultController extends Controller
             $searchModel = new SearchForm(['text' => $search, 'field' => $searchFieldId]);
         }
 
-        $searchData = [];
+        $searchDataFilter = [];
         if ($searchModel->isAttributesSetted() && $searchModel->validate()) {
             switch ($searchModel->field) {
                 case SearchForm::ORDER_FIELD_ID:
-                    $searchData = ['in', 'orders.id', $searchModel->text];
+                    $searchDataFilter = ['in', 'orders.id', $searchModel->text];
                     break;
                 case SearchForm::LINK_FIELD_ID:
-                    $searchData = ['like', 'orders.link', $searchModel->text];
+                    $searchDataFilter = ['like', 'orders.link', $searchModel->text];
                     break;
                 case SearchForm::USER_FIELD_ID:
-                    $searchData = ['like', 'CONCAT(users.first_name, \' \', users.last_name)', $searchModel->text];
+                    $searchDataFilter = ['like', 'CONCAT(users.first_name, \' \', users.last_name)', $searchModel->text];
                     break;
             }
         }
@@ -82,7 +82,7 @@ class DefaultController extends Controller
                               'orders.service_id' => $service,
                               'orders.mode' => $mode
                           ])
-            ->andFilterWhere($searchData)
+            ->andFilterWhere($searchDataFilter)
             ->innerJoin('users', 'users.id = orders.user_id')
             ->orderBy(['orders.id' => SORT_DESC]);
 
