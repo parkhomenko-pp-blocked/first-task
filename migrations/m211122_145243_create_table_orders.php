@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m211122_144632_create_table_orders extends Migration
+class m211122_145243_create_table_orders extends Migration
 {
     public function up()
     {
