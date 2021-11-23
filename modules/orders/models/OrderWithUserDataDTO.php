@@ -15,6 +15,12 @@ class OrderWithUserDataDTO
     private int $created;
     private ServiceDTO $service;
 
+    private const NAMES = [
+        null => 'All',
+        0 => 'Manual',
+        1 => 'Auto'
+    ];
+
     public function __construct(
         int $id,
         string $user,
@@ -83,6 +89,11 @@ class OrderWithUserDataDTO
     public function getMode()
     {
         return $this->mode;
+    }
+
+    public function getModeName(): string
+    {
+        return self::NAMES[$this->mode];
     }
 
     public function getService(): ServiceDTO

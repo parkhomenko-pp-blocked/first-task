@@ -94,19 +94,19 @@ use yii\widgets\LinkPager;
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>>
-                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">
+                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                             <?= Yii::t('app', 'All') ?>
                         </a>
                     </li>
 
                     <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>>
-                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'formSearch' => $searchModel])?>">
+                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                             <?= Yii::t('app', 'Manual') ?>
                         </a>
                     </li>
 
                     <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>>
-                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'formSearch' => $searchModel])?>">
+                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                             <?= Yii::t('app', 'Auto') ?>
                         </a>
                     </li>
@@ -142,5 +142,14 @@ use yii\widgets\LinkPager;
 
     <div class="col-sm-4 pagination-counters">
         <?= $pagination->totalCount ?>
+
+        <a href="<?= Url::to(['default/download',
+                             'status' => $status,
+                             'search' => $searchModel->text,
+                             'searchFieldId' => $searchModel->field,
+                             'mode' => $mode,
+                             'service' => $serviceId])?>">
+            <?= Yii::t('app', 'Download CSV') ?>
+        </a>
     </div>
 </div>

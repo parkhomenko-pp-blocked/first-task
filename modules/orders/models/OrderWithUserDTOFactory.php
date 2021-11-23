@@ -32,7 +32,7 @@ class OrderWithUserDTOFactory
     }
 
     /**
-     * @param array $orders
+     * @param array $arOrders
      * @return OrderWithUserDataDTO[]
      */
     public function fromArrayToArray(array $arOrders): array
