@@ -24,3 +24,6 @@ docker-compose exec php php yii migrate # выполнение миграций
 Имя БД:`dbname` </br>
 Имя пользователя: `username` </br>
 Пароль: `password` </br>
+
+Страница со списком заказов:
+[http://localhost/index.php?r=orders](http://localhost/index.php?r=orders)
