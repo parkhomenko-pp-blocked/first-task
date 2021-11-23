@@ -30,12 +30,12 @@ use yii\widgets\LinkPager;
 
 ?>
 <ul class="nav nav-tabs p-b">
-    <li <?php if ($status === ORDERS_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index'])?>"><?= Yii::t('app', 'All orders') ?></a></li>
-    <li <?php if ($status === ORDERS_STATUS_PENDING): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_PENDING])?>"><?= Yii::t('app', 'Pending') ?></a></li>
-    <li <?php if ($status === ORDERS_STATUS_IN_PROGRESS): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_IN_PROGRESS])?>"><?= Yii::t('app', 'In progress') ?></a></li>
-    <li <?php if ($status === ORDERS_STATUS_COMPLETED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_COMPLETED])?>"><?= Yii::t('app', 'Completed') ?></a></li>
-    <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED])?>"><?= Yii::t('app', 'Canceled') ?></a></li>
-    <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR])?>"><?= Yii::t('app', 'Error') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'All orders') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_PENDING): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_PENDING, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'Pending') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_IN_PROGRESS): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_IN_PROGRESS, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'In progress') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_COMPLETED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_COMPLETED, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'Completed') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'Canceled') ?></a></li>
+    <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'Error') ?></a></li>
     <li class="pull-right custom-search">
         <form class="form-inline" action="<?= Url::to(['default/index', 'status' => $status]) ?>" method="post">
             <?= Html::hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken()) ?>
