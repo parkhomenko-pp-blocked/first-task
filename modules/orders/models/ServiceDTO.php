@@ -33,6 +33,9 @@ class ServiceDTO
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;

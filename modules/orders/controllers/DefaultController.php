@@ -10,6 +10,7 @@ use app\modules\orders\models\OrderWithUserDTOSeeder;
 use app\modules\orders\models\SearchForm;
 use app\modules\orders\models\ServiceDTO;
 use app\modules\orders\models\ServiceDTOFactory;
+use Yii;
 use yii\data\Pagination;
 use yii\db\Query;
 use yii\web\Controller;
@@ -28,14 +29,13 @@ class DefaultController extends Controller
      * @param int|null $mode
      * @param string|null $search
      * @param int|null $searchFieldId
-     * @param bool $isDownloadRequest
      * @return string
      */
     public function actionIndex(int $status = null, int $service = null, int $mode = null, string $search = null, int $searchFieldId = null): string
     {
         $services = $this->getServices();
         $searchModel = $this->getSearchModel($search, $searchFieldId);
-        $ordersQuery = $this->getOrdersQuery($searchModel, $status, $service, $mode, $search, $searchFieldId);
+        $ordersQuery = $this->getOrdersQuery($searchModel, $status, $service, $mode);
 
         $pagination = new Pagination(
             [
@@ -74,19 +74,26 @@ class DefaultController extends Controller
     public function actionDownload(int $status = null, int $service = null, int $mode = null, string $search = null, int $searchFieldId = null): \yii\web\Response|\yii\console\Response
     {
         $searchModel = $this->getSearchModel($search, $searchFieldId);
-        $ordersQuery = $this->getOrdersQuery($searchModel, $status, $service, $mode, $search, $searchFieldId);
+        $ordersQuery = $this->getOrdersQuery($searchModel, $status, $service, $mode);
         $arOrders = $ordersQuery
             ->all();
         $ordersFactory = new OrderWithUserDTOFactory($this->getServices());
         $orders = $ordersFactory->fromArrayToArray($arOrders);
 
         $seeder = new OrderWithUserDTOSeeder();
-        $path = $seeder->toCSVFile($orders, \Yii::getAlias('@webroot') . '/csv/');
+        $path = $seeder->toCSVFile($orders, Yii::getAlias('@webroot') . '/csv/');
 
-        return \Yii::$app->response->sendFile($path);
+        return Yii::$app->response->sendFile($path);
     }
 
-    private function getOrdersQuery(SearchForm $searchModel, int $status = null, int $service = null, int $mode = null, string $search = null, int $searchFieldId = null):  Query
+    /**
+     * @param SearchForm $searchModel
+     * @param int|null $status
+     * @param int|null $service
+     * @param int|null $mode
+     * @return Query
+     */
+    private function getOrdersQuery(SearchForm $searchModel, int $status = null, int $service = null, int $mode = null):  Query
     {
         $searchDataFilter = [];
         if ($searchModel->isAttributesSet() && $searchModel->validate()) {
@@ -154,9 +161,9 @@ class DefaultController extends Controller
     private function getSearchModel(string $search = null, int $searchFieldId = null): SearchForm
     {
         $searchModel = new SearchForm();
-        if (\Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) {
             $searchModel = new SearchForm();
-            $searchModel->load(\Yii::$app->request->post());
+            $searchModel->load(Yii::$app->request->post());
         } elseif (isset($search, $searchFieldId)) {
             $searchModel = new SearchForm(['text' => $search, 'field' => $searchFieldId]);
         }

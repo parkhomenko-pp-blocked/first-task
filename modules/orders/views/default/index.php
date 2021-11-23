@@ -38,7 +38,7 @@ use yii\widgets\LinkPager;
     <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'Error') ?></a></li>
     <li class="pull-right custom-search">
         <form class="form-inline" action="<?= Url::to(['default/index', 'status' => $status]) ?>" method="post">
-            <?= Html::hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken()) ?>
+            <?= Html::hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken()) ?>
             <div class="input-group">
                 <input type="text" name="SearchForm[text]" class="form-control" value="<?= $searchModel->text ?>" placeholder="Search orders">
                 <span class="input-group-btn search-select-wrap">
@@ -128,7 +128,6 @@ use yii\widgets\LinkPager;
                 <td><?= $order->getStatus() ?></td>
                 <td><?= $order->getMode() ?></td>
                 <td><span class="nowrap"><?=  gmdate("Y-m-d H:i:s", $order->getCreated()) ?></span></td>
-<!--                <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>-->
             </tr>
         <?php endforeach; ?>
     </tbody>

@@ -86,7 +86,7 @@ class OrderWithUserDataDTO
         return $this->status;
     }
 
-    public function getMode()
+    public function getMode(): string
     {
         return $this->mode;
     }

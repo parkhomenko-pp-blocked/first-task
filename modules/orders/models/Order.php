@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\modules\orders\models;
 
-use Yii;
 
 /**
  * This is the model class for table "orders".
@@ -44,7 +43,7 @@ class Order extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_id', 'link', 'quantity', 'service_id', 'status', 'created_at', 'mode'], 'required'],
@@ -54,9 +53,9 @@ class Order extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',

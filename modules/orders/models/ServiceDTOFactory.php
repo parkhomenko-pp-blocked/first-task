@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\orders\models;
+declare(strict_types=1);
 
-use Throwable;
+namespace app\modules\orders\models;
 
 class ServiceDTOFactory
 {
@@ -15,15 +15,11 @@ class ServiceDTOFactory
         $services = [];
 
         foreach ($arServices as $arService) {
-            try {
-                $services[$arService['service_id']] = new ServiceDTO(
-                    $arService['service_id'],
-                    $arService['service_count'],
-                    $arService['service_name'],
-                );
-            } catch (Throwable) {
-
-            }
+            $services[$arService['service_id']] = new ServiceDTO(
+                (int)$arService['service_id'],
+                (int)$arService['service_count'],
+                $arService['service_name'],
+            );
         }
 
         return $services;

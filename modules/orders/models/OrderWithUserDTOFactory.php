@@ -2,8 +2,6 @@
 
 namespace app\modules\orders\models;
 
-use Throwable;
-
 class OrderWithUserDTOFactory
 {
     private const STATUES = [
