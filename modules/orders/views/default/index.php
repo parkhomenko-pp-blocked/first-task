@@ -41,12 +41,12 @@ use yii\widgets\LinkPager;
         <form class="form-inline" action="<?= Url::to(['default/index', 'status' => $status]) ?>" method="post">
             <?= Html::hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken()) ?>
             <div class="input-group">
-                <input type="text" name="SearchForm[text]" class="form-control" value="" placeholder="Search orders">
+                <input type="text" name="SearchForm[text]" class="form-control" value="<?= $searchModel->text ?>" placeholder="Search orders">
                 <span class="input-group-btn search-select-wrap">
                     <select class="form-control search-select" name="SearchForm[field]">
-                        <option value="1" selected=""><?= Yii::t('app', 'Order ID') ?></option>
-                        <option value="2"><?= Yii::t('app', 'Link') ?></option>
-                        <option value="3"><?= Yii::t('app', 'User') ?></option>
+                        <option value="1" <?php if ((int)$searchModel->field === 1): ?> selected <?php endif ?>><?= Yii::t('app', 'Order ID') ?></option>
+                        <option value="2" <?php if ((int)$searchModel->field === 2): ?> selected <?php endif ?>><?= Yii::t('app', 'Link') ?></option>
+                        <option value="3" <?php if ((int)$searchModel->field === 3): ?> selected <?php endif ?>><?= Yii::t('app', 'User') ?></option>
                     </select>
                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </span>
