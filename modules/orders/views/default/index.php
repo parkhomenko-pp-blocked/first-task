@@ -26,7 +26,6 @@ const MODE_STATUS_AUTO = 1;
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 
 ?>
@@ -76,7 +75,7 @@ use yii\widgets\LinkPager;
                     </li>
                     <?php foreach($services as $service): ?>
                         <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>>
-                            <a href="<?= Url::to(['default/index', 'service' => $service->getId(), 'mode' => $mode, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
+                            <a href="<?= Url::to(['default/index', 'status' => $status, 'service' => $service->getId(), 'mode' => $mode, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                                 <span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?>
                             </a>
                         </li>
@@ -94,19 +93,19 @@ use yii\widgets\LinkPager;
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li <?php if ($mode === MODE_STATUS_ALL): ?>class="active"<?php endif;?>>
-                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
+                        <a href="<?= Url::to(['default/index', 'status' => $status, 'mode' => MODE_STATUS_ALL, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                             <?= Yii::t('app', 'All') ?>
                         </a>
                     </li>
 
                     <li <?php if ($mode === MODE_STATUS_MANUAL): ?>class="active"<?php endif;?>>
-                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
+                        <a href="<?= Url::to(['default/index', 'status' => $status, 'mode' => MODE_STATUS_MANUAL, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                             <?= Yii::t('app', 'Manual') ?>
                         </a>
                     </li>
 
                     <li <?php if ($mode === MODE_STATUS_AUTO): ?>class="active"<?php endif;?>>
-                        <a href="<?= Url::to(['default/index', 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
+                        <a href="<?= Url::to(['default/index', 'status' => $status, 'mode' => MODE_STATUS_AUTO, 'service' => $serviceId, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
                             <?= Yii::t('app', 'Auto') ?>
                         </a>
                     </li>
