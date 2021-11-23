@@ -51,7 +51,7 @@ class DefaultController extends Controller
         }
 
         $searchDataFilter = [];
-        if ($searchModel->isAttributesSetted() && $searchModel->validate()) {
+        if ($searchModel->isAttributesSet() && $searchModel->validate()) {
             switch ($searchModel->field) {
                 case SearchForm::ORDER_FIELD_ID:
                     $searchDataFilter = ['in', 'orders.id', $searchModel->text];

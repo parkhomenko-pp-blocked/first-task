@@ -3,11 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\assets\AppAsset;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
-
-AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -53,11 +50,9 @@ AppAsset::register($this);
     </div>
 </nav>
 
-<main>
-    <div class="container-fluid">
-        <?= $content ?>
-    </div>
-</main>
+<div class="container-fluid">
+    <?= $content ?>
+</div>
 
 <?php $this->endBody() ?>
 </body>

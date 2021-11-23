@@ -22,7 +22,7 @@ class SearchForm extends Model
         ];
     }
 
-    public function isAttributesSetted(): bool
+    public function isAttributesSet(): bool
     {
         return isset($this->text, $this->field);
     }

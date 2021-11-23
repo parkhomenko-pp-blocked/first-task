@@ -38,23 +38,20 @@ use yii\widgets\LinkPager;
     <li <?php if ($status === ORDERS_STATUS_CANCELED): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_CANCELED])?>"><?= Yii::t('app', 'Canceled') ?></a></li>
     <li <?php if ($status === ORDERS_STATUS_ERROR): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'status' => ORDERS_STATUS_ERROR])?>"><?= Yii::t('app', 'Error') ?></a></li>
     <li class="pull-right custom-search">
-        <?php $form = ActiveForm::begin(['class' => 'form-inline']) ?>
+        <form class="form-inline" action="<?= Url::to(['default/index', 'status' => $status]) ?>" method="post">
+            <?= Html::hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken()) ?>
             <div class="input-group">
-                <?= $form->field($searchModel, 'text')->label(false)->textInput(['placeholder' => Yii::t('app', 'Search Orders')]) ?>
+                <input type="text" name="SearchForm[text]" class="form-control" value="" placeholder="Search orders">
                 <span class="input-group-btn search-select-wrap">
-                    <?= $form->field($searchModel, 'field')->label(false)
-                        ->dropDownList([
-                                           '1' => 'Order ID',
-                                           '2' => 'Link',
-                                           '3' => 'Username'
-                                       ], ['class' => 'form-control search-select']) ?>
-
-                    <div class="form-group">
-                        <?= Html::submitButton('<span class="glyphicon glyphicon-search" aria-hidden="true"></span>', ['class' => 'btn btn-default', 'type' => 'submit']) ?>
-                    </div>
+                    <select class="form-control search-select" name="SearchForm[field]">
+                        <option value="1" selected=""><?= Yii::t('app', 'Order ID') ?></option>
+                        <option value="2"><?= Yii::t('app', 'Link') ?></option>
+                        <option value="3"><?= Yii::t('app', 'User') ?></option>
+                    </select>
+                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </span>
             </div>
-        <?php ActiveForm::end() ?>
+        </form>
     </li>
 </ul>
 
