@@ -131,7 +131,7 @@ use yii\widgets\LinkPager;
                 </td>
                 <td><?= $order->getStatus() ?></td>
                 <td><?= $order->getMode() ?></td>
-                <td><span class="nowrap"><?= $order->getCreated() ?></span></td>
+                <td><span class="nowrap"><?=  gmdate("Y-m-d H:i:s", $order->getCreated()) ?></span></td>
 <!--                <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>-->
             </tr>
         <?php endforeach; ?>

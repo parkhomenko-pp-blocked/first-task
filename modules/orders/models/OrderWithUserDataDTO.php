@@ -12,7 +12,7 @@ class OrderWithUserDataDTO
     private int $quantity;
     private string $status;
     private string $mode;
-    private string $created;
+    private int $created;
     private ServiceDTO $service;
 
     public function __construct(
@@ -23,7 +23,7 @@ class OrderWithUserDataDTO
         ServiceDTO $service,
         string $status,
         string $mode,
-        string $created,
+        int $created,
     ) {
         $this->id = $id;
         $this->user = $user;
@@ -65,9 +65,9 @@ class OrderWithUserDataDTO
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCreated(): string
+    public function getCreated(): int
     {
         return $this->created;
     }
