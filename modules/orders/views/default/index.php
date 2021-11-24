@@ -60,7 +60,7 @@ use yii\widgets\LinkPager;
         <th><?= Yii::t('app', 'ID') ?></th>
         <th><?= Yii::t('app', 'User') ?></th>
         <th><?= Yii::t('app', 'Link') ?></th>
-        <th><?= Yii::t('app', 'Quantiry') ?></th>
+        <th><?= Yii::t('app', 'Quantity') ?></th>
         <th class="dropdown-th">
             <div class="dropdown">
                 <button class="btn btn-th btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

@@ -51,8 +51,8 @@ $config = [
             ],
         ],
         'db' => $db,
-        'language' => 'ru-RU',
-        'sourceLanguage' => 'en-US',
+        'language' => 'ru',
+        'sourceLanguage' => 'en',
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -66,7 +66,7 @@ $config = [
                 '*' => [
                     'class'   => PhpMessageSource::class,
                     'basePath' => '@app/messages',
-//                    'sourceLanguage' => 'en-US',
+                    'sourceLanguage' => 'en',
                     'fileMap' => [
                         'app'       => 'app.php',
                         'app/error' => 'error.php',
