@@ -14,6 +14,8 @@ use Yii;
 use yii\data\Pagination;
 use yii\db\Query;
 use yii\web\Controller;
+use yii\web\Response as WebResponse;
+use yii\console\Response as ConsoleResponse;
 
 /**
  * Default controller for the `orders` module
@@ -24,15 +26,18 @@ class DefaultController extends Controller
 {
     /**
      * Renders the index view for the module
-     * @param int|null $status
-     * @param int|null $service
-     * @param int|null $mode
-     * @param string|null $search
-     * @param int|null $searchFieldId
      * @return string
      */
-    public function actionIndex(int $status = null, int $service = null, int $mode = null, string $search = null, int $searchFieldId = null): string
+    public function actionIndex(): string
     {
+        $request = Yii::$app->request;
+
+        $status = $request->get('status') !== null ? (int)$request->get('status') : null;
+        $service = $request->get('service') !== null ? (int)$request->get('service') : null;
+        $mode = $request->get('mode') !== null ? (int)$request->get('mode') : null;
+        $search = $request->get('search') !== null ? (string)$request->get('search') : null;
+        $searchFieldId = $request->get('searchFieldId') !== null ? (int)$request->get('searchFieldId') : null;
+
         $services = $this->getServices();
         $searchModel = $this->getSearchModel($search, $searchFieldId);
         $ordersQuery = $this->getOrdersQuery($searchModel, $status, $service, $mode);
@@ -64,15 +69,18 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param int|null $status
-     * @param int|null $service
-     * @param int|null $mode
-     * @param string|null $search
-     * @param int|null $searchFieldId
-     * @return \yii\web\Response|\yii\console\Response
+     * @return WebResponse|ConsoleResponse
      */
-    public function actionDownload(int $status = null, int $service = null, int $mode = null, string $search = null, int $searchFieldId = null): \yii\web\Response|\yii\console\Response
+    public function actionDownload(): WebResponse|ConsoleResponse
     {
+        $request = Yii::$app->request;
+
+        $status = $request->get('status') !== null ? (int)$request->get('status') : null;
+        $service = $request->get('service') !== null ? (int)$request->get('service') : null;
+        $mode = $request->get('mode') !== null ? (int)$request->get('mode') : null;
+        $search = $request->get('search') !== null ? (string)$request->get('search') : null;
+        $searchFieldId = $request->get('searchFieldId') !== null ? (int)$request->get('searchFieldId') : null;
+
         $searchModel = $this->getSearchModel($search, $searchFieldId);
         $ordersQuery = $this->getOrdersQuery($searchModel, $status, $service, $mode);
         $arOrders = $ordersQuery
