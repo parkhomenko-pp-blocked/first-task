@@ -16,11 +16,17 @@ docker-compose up -d # запуск
 ```
 
 ```bash
+docker-compose exec php composer install --ignore-platform-reqs # установка зависимостей composer 
+```
+
+```bash
 docker-compose exec php php yii migrate # выполнение миграций
 ```
 
 Далее необходимо подключиться к БД, развернутой в докере и загрузить [дамп](https://drive.google.com/file/d/1hC4ckALINe0rgfDyYpoZiZRZ30EpEwLn/view?usp=sharing) (файл test_db_data.sql в архиве) с данными в таблицы.
 
+Сервер: `localhost` </br>
+Порт: `3306` </br>
 Имя БД:`dbname` </br>
 Имя пользователя: `username` </br>
 Пароль: `password` </br>
