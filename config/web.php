@@ -1,5 +1,6 @@
 <?php
 
+use yii\i18n\DbMessageSource;
 use yii\i18n\PhpMessageSource;
 use app\modules\orders\Orders;
 
@@ -63,15 +64,23 @@ $config = [
         */
         'i18n' => [
             'translations' => [
-                '*' => [
-                    'class'   => PhpMessageSource::class,
-                    'basePath' => '@app/messages',
+                'app'   => [
+                    'class'          => PhpMessageSource::class,
+                    'basePath'       => '@app/messages',
                     'sourceLanguage' => 'en',
-                    'fileMap' => [
+                    'fileMap'        => [
                         'app'       => 'app.php',
                         'app/error' => 'error.php',
                     ],
                 ],
+                'db' => [
+                    'class'              => DbMessageSource::class,
+                    'sourceMessageTable' => '{{%source_message}}',
+                    'messageTable'       => '{{%message}}',
+                    'enableCaching'      => true,
+                    'cachingDuration'    => 10,
+                    'forceTranslation'   => true,
+                ]
             ],
         ],
     ],

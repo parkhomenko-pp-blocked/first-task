@@ -73,16 +73,18 @@ Yii::$app->language = 'ru-RU';
                     <?= Yii::t('app', 'Service') ?>
                     <span class="caret"></span>
                 </button>
+
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li <?php if ($serviceId === null): ?>class="active"<?php endif;?>>
                         <a href="<?= Url::to(['default/index', 'service' => null, 'mode' => $mode])?>">
                             <?= Yii::t('app', 'All') ?> (<?= $totalCountWithoutFilters ?>)
                         </a>
                     </li>
+
                     <?php foreach($services as $service): ?>
                         <li <?php if ($service->getId() === $serviceId): ?>class="active"<?php endif;?>>
                             <a href="<?= Url::to(['default/index', 'status' => $status, 'service' => $service->getId(), 'mode' => $mode, 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>">
-                                <span class="label-id"><?= $service->getCount() ?></span> <?= $service->getName() ?>
+                                <span class="label-id"><?= $service->getCount() ?></span> <?= Yii::t('db', $service->getName()) ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
@@ -129,7 +131,7 @@ Yii::$app->language = 'ru-RU';
                 <td class="link"><?= $order->getLink() ?></td>
                 <td><?= $order->getQuantity() ?></td>
                 <td class="service">
-                    <span class="label-id"><?= $order->getService()->getCount() ?></span> <?=$order->getService()->getName()?>
+                    <span class="label-id"><?= $order->getService()->getCount() ?></span> <?= Yii::t('db', $order->getService()->getName())  ?>
                 </td>
                 <td><?= Yii::t('app', $order->getStatus()) ?></td>
                 <td><?= Yii::t('app', $order->getMode()) ?></td>
