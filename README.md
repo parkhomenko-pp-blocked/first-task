@@ -23,7 +23,7 @@ docker-compose exec php composer install --ignore-platform-reqs # установ
 docker-compose exec php php yii migrate # выполнение миграций
 ```
 
-Далее необходимо подключиться к БД, развернутой в докере и загрузить [дамп](https://drive.google.com/file/d/1hC4ckALINe0rgfDyYpoZiZRZ30EpEwLn/view?usp=sharing) (файл test_db_data.sql в архиве) с данными в таблицы.
+Далее необходимо подключиться к БД, развернутой в докере и загрузить [дамп](https://drive.google.com/file/d/17rtEMYRsfYkibMtGBzCQleaVwrRAXilQ/view?usp=sharing) с данными в БД.
 
 Сервер: `localhost` </br>
 Порт: `3306` </br>
