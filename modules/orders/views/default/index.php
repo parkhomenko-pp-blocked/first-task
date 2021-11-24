@@ -32,8 +32,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
-Yii::$app->language = 'ru-RU';
-
+//Yii::$app->language = 'ru-RU';
 ?>
 <ul class="nav nav-tabs p-b">
     <li <?php if ($status === ORDERS_STATUS_ALL): ?>class="active"<?php endif;?>><a href="<?= Url::to(['default/index', 'search' => $searchModel->text, 'searchFieldId' => $searchModel->field])?>"><?= Yii::t('app', 'All orders') ?></a></li>
