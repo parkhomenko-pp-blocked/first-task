@@ -12,7 +12,8 @@ class OrderWithUserDTOSeeder
      */
     public function toCSVFile(array $orders, string $folder): string
     {
-        if (!mkdir($folder) && !is_dir($folder)) {
+        // dir doesn't exist, make it
+        if (!is_dir($folder) && !mkdir($folder) && !is_dir($folder)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $folder));
         }
 
