@@ -12,6 +12,10 @@ class OrderWithUserDTOSeeder
      */
     public function toCSVFile(array $orders, string $folder): string
     {
+        if (!mkdir($folder) && !is_dir($folder)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $folder));
+        }
+
         $path = sprintf('%sorders-%s.csv', $folder, gmdate("Y-m-d-H-i-s"));
 
         file_put_contents($path, 'id;user;link;quantity;service;order;crated_at' . PHP_EOL);
