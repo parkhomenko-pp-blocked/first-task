@@ -13,10 +13,10 @@ const MODE_STATUS_ALL = null;
 const MODE_STATUS_MANUAL = 0;
 const MODE_STATUS_AUTO = 1;
 /**
- * @var \app\modules\orders\models\OrderWithUserDataDTO[] $orders
- * @var \yii\data\Pagination $pagination
- * @var \app\modules\orders\models\ServiceDTO[] $services
- * @var \app\modules\orders\models\SearchForm|null $searchModel
+ * @var OrderWithUserDataDTO[] $orders
+ * @var Pagination $pagination
+ * @var ServiceDTO[] $services
+ * @var SearchForm|null $searchModel
  *
  * @var int|null $status
  * @var int|null $serviceId
@@ -24,9 +24,15 @@ const MODE_STATUS_AUTO = 1;
  * @var int|null $totalCountWithoutFilters
  */
 
+use app\modules\orders\models\OrderWithUserDataDTO;
+use app\modules\orders\models\SearchForm;
+use app\modules\orders\models\ServiceDTO;
+use yii\data\Pagination;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+
+Yii::$app->language = 'ru-RU';
 
 ?>
 <ul class="nav nav-tabs p-b">
@@ -40,7 +46,7 @@ use yii\widgets\LinkPager;
         <form class="form-inline" action="<?= Url::to(['default/index', 'status' => $status]) ?>" method="post">
             <?= Html::hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken()) ?>
             <div class="input-group">
-                <input type="text" name="SearchForm[text]" class="form-control" value="<?= $searchModel->text ?>" placeholder="Search orders">
+                <input type="text" name="SearchForm[text]" class="form-control" value="<?= $searchModel->text ?>" placeholder="<?= Yii::t('app', 'Search orders') ?>">
                 <span class="input-group-btn search-select-wrap">
                     <select class="form-control search-select" name="SearchForm[field]">
                         <option value="1" <?php if ((int)$searchModel->field === 1): ?> selected <?php endif ?>><?= Yii::t('app', 'Order ID') ?></option>
@@ -125,8 +131,8 @@ use yii\widgets\LinkPager;
                 <td class="service">
                     <span class="label-id"><?= $order->getService()->getCount() ?></span> <?=$order->getService()->getName()?>
                 </td>
-                <td><?= $order->getStatus() ?></td>
-                <td><?= $order->getMode() ?></td>
+                <td><?= Yii::t('app', $order->getStatus()) ?></td>
+                <td><?= Yii::t('app', $order->getMode()) ?></td>
                 <td><span class="nowrap"><?=  gmdate("Y-m-d H:i:s", $order->getCreated()) ?></span></td>
             </tr>
         <?php endforeach; ?>

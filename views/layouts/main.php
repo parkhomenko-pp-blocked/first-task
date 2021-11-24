@@ -5,6 +5,8 @@
 
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
+
+Yii::$app->language = 'ru';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
