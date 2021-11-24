@@ -4,16 +4,9 @@ declare(strict_types=1);
 
 namespace app\modules\orders\controllers;
 
-use app\modules\orders\models\Order;
 use app\modules\orders\models\OrderSearch;
-use app\modules\orders\models\OrderWithUserDTOFactory;
-use app\modules\orders\models\OrderWithUserDTOSeeder;
-use app\modules\orders\models\SearchForm;
 use app\modules\orders\models\ServiceDTO;
-use app\modules\orders\models\ServiceDTOFactory;
 use Yii;
-use yii\data\Pagination;
-use yii\db\Query;
 use yii\web\Controller;
 use yii\web\Response as WebResponse;
 use yii\console\Response as ConsoleResponse;
