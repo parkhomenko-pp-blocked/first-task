@@ -3,6 +3,8 @@
 Докер-контейнер для Yii2 с MySQL взят из [xzag/yii2-docker-basic](https://github.com/xzag/yii2-docker-basic)
 ## Запуск
 Открыть проект.
+
+#### Развернуть проект в докере
 ```bash
 cd docker # зайти в папку "docker" внутри проекта
 ```
@@ -23,13 +25,13 @@ docker-compose exec php composer install --ignore-platform-reqs # установ
 docker-compose exec php php yii migrate # выполнение миграций
 ```
 
-Далее необходимо подключиться к БД, развернутой в докере и загрузить [дамп](https://drive.google.com/file/d/17rtEMYRsfYkibMtGBzCQleaVwrRAXilQ/view?usp=sharing) с данными в БД.
+#### Добавить данные в БД
+Далее необходимо подключиться к БД, развернутой в докере и загрузить [дамп](https://drive.google.com/file/d/17rtEMYRsfYkibMtGBzCQleaVwrRAXilQ/view?usp=sharing) с данными в БД: <br>
+ - Сервер: `localhost` </br>
+ - Порт: `3306` </br>
+ - Имя БД:`dbname` </br>
+ - Имя пользователя: `username` </br>
+ - Пароль: `password` </br>
 
-Сервер: `localhost` </br>
-Порт: `3306` </br>
-Имя БД:`dbname` </br>
-Имя пользователя: `username` </br>
-Пароль: `password` </br>
-
-Страница со списком заказов:
-[http://localhost/index.php?r=orders](http://localhost/index.php?r=orders)
+#### Перейти на сайт
+[http://localhost/](http://localhost/)
