@@ -48,9 +48,9 @@ use yii\widgets\LinkPager;
                 <input type="text" name="SearchForm[text]" class="form-control" value="<?= $searchModel->text ?>" placeholder="<?= Yii::t('app', 'Search orders') ?>">
                 <span class="input-group-btn search-select-wrap">
                     <select class="form-control search-select" name="SearchForm[field]">
-                        <option value="1" <?php if ((int)$searchModel->field === 1): ?> selected <?php endif ?>><?= Yii::t('app', 'Order ID') ?></option>
-                        <option value="2" <?php if ((int)$searchModel->field === 2): ?> selected <?php endif ?>><?= Yii::t('app', 'Link') ?></option>
-                        <option value="3" <?php if ((int)$searchModel->field === 3): ?> selected <?php endif ?>><?= Yii::t('app', 'User') ?></option>
+                        <option value="<?= SearchForm::ORDER_FIELD_ID ?>" <?php if ((int)$searchModel->field === SearchForm::ORDER_FIELD_ID): ?> selected <?php endif ?>><?= Yii::t('app', 'Order ID') ?></option>
+                        <option value="<?= SearchForm::LINK_FIELD_ID ?>" <?php if ((int)$searchModel->field === SearchForm::LINK_FIELD_ID): ?> selected <?php endif ?>><?= Yii::t('app', 'Link') ?></option>
+                        <option value="<?= SearchForm::USER_FIELD_ID ?>" <?php if ((int)$searchModel->field === SearchForm::USER_FIELD_ID): ?> selected <?php endif ?>><?= Yii::t('app', 'User') ?></option>
                     </select>
                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </span>

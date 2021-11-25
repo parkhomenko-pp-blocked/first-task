@@ -29,14 +29,12 @@ class OrderSearch extends Model
     {
         $this->status = !isset($arParams['status']) ? null : (int)$arParams['status'];
 
-        $searchModel = new SearchForm();
+        $this->searchModel = new SearchForm();
         if (Yii::$app->request->isPost) {
-            $searchModel = new SearchForm();
-            $searchModel->load(Yii::$app->request->post());
+            $this->searchModel->load(Yii::$app->request->post());
         } elseif (isset($arParams['search'], $arParams['searchFieldId'])) {
-            $searchModel = new SearchForm(['text' => $arParams['search'], 'field' => (int)$arParams['searchFieldId']]);
+            $this->searchModel->load(['text' => $arParams['search'], 'field' => (int)$arParams['searchFieldId']]);
         }
-        $this->searchModel = $searchModel;
 
         $this->service = !isset($arParams['service']) ? null : (int)$arParams['service'];
         $this->mode = !isset($arParams['mode']) ? null : (int)$arParams['mode'];
@@ -104,7 +102,7 @@ class OrderSearch extends Model
     private function getOrdersQuery(): Query
     {
         $searchDataFilter = [];
-        if ($this->searchModel->isAttributesSet() && $this->searchModel->validate()) {
+        if ($this->searchModel->validate()) {
             switch ($this->searchModel->field) {
                 case SearchForm::ORDER_FIELD_ID:
                     $searchDataFilter = ['in', 'orders.id', $this->searchModel->text];
